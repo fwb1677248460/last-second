@@ -59,7 +59,7 @@ export default {
   beforeCreate(){
     if(!$cookies.get("username")){
       alert("您未登陆")
-      this.$router.push({path:'/Register'})
+      this.$router.push({path:'/Login'})
     }
   },
     components:{

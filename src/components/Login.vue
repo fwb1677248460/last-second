@@ -16,7 +16,7 @@
           <input class="form-check-input" value="7" name="sevenDay" type="checkbox"> 保留陆登信息
         </label>
       </div> -->
-        <button @click="login($event)">登陆</button>    
+        <button @click="login($event)">登陆</button><router-link to="/Register" tag="button">注册</router-link>   
         <div id="error">{{error}}</div>
     </form>
       </div>
@@ -98,6 +98,7 @@ this.axios({
     border:1px solid #aaa;
     border-radius:4px 4px;
     margin-top: 10px;
+    margin-right: 20px
   }
   #error{
     color:red;

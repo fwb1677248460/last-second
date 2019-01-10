@@ -10,30 +10,55 @@
                </li>
                <li>
                    <router-link to="/NewPost">发布聊天室</router-link>
-               </li>
-               <li>
-                   <router-link to="/Login">会员登陆</router-link>
-               </li>
+               </li>              
                <li>
                    <router-link to="/Register">用户注册</router-link>
+               </li> 
+               <li v-if="msg_boolen">
+                   <router-link to="/Login">会员登陆</router-link>
                </li>
-
+               <template v-else>
+               <li>{{msg}}</li>
+               <li @click="quit">quit</li>
+               </template>
         </ul>
       </div>
     </div>
   </header>
 </template>
-
 <script>
 export default {
   name: 'top',
   data(){
     return{
-
+        msg_boolen:"true",
+        msg:""
     }
   },
   props: {
     system:Object
+  },
+  methods:{
+    quit(){
+      if (confirm("你确定退出么?")) {
+      $cookies.remove("username")
+      $cookies.remove("userId")
+      $cookies.remove("userlevel")
+      }
+      if(!$cookies.get("username")){
+      alert("您未登陆")
+      this.$router.push({path:'/Login'})
+    }
+    }
+  },
+  created(){
+    this.msg = $cookies.get("username")
+    if (this.msg!= null) {
+      this.msg_boolen = false
+    }else{
+      this.msg_boolen = true
+    }
+    // console.log(this.msg_boolen)
   }
 }
 </script>

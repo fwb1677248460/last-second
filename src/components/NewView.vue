@@ -43,7 +43,7 @@
             <div class="card-body" v-html="newsview[index].chatBody"></div>
           </div>
         </li>
-        <h6 v-if="commentslength!=end" class="onloadMore" @click="onloadmore()">加载更多</h6>
+        <h6 v-if="commentslength > end" class="onloadMore" @click="onloadmore()">加载更多</h6>
         <p class="onloadend" v-else>已经加载全部内容</p>
       </ul>
     </div>
@@ -71,7 +71,7 @@ export default {
       id: this.$route.params.id,
       newsview: [],
       commentslength: 0,
-      newsContent: {},
+      newsContent: {title:""},
       userAvatar: "http://fwb1314520.gz01.bdysite.com/",
       start: 0,
       end: 10,
@@ -110,7 +110,11 @@ export default {
           // reverse
           this.commentslength = res.data.message.length;
           this.newsview = res.data.message.reverse().splice(start, end);
-          this.newsContent = this.newsview[0];
+          
+          if (this.newsview.length != 0) {
+           this.newsContent = this.newsview[0] 
+          }
+          // console.log(this.newsview.length)
         });
     },
     add(){
@@ -148,7 +152,8 @@ export default {
     quillEditor
   },
   created() {
-    this.getChatall(this.start, this.end);
+    this.getChatall(this.start, this.end)
+    
     $cookies.get("username"); 
   },
   mounted() {
